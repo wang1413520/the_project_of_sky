@@ -84,4 +84,20 @@ public class EmployeeServiceImpl implements EmployeeService {
         employeeMapper.insert(employee);
     }
 
+    // 分页查询
+    @Override
+    public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
+        // 开始分页查询
+        PageHelper.startPage(employeePageQueryDTO.getPage(), employeePageQueryDTO.getPageSize());
+
+        Page<Employee> page = employeeMapper.pageQuery(employeePageQueryDTO);
+
+        // 将返回值进行处理
+        // 获得查询的总的记录数据
+        long total = page.getTotal();
+        // 拿到分页查询那一页的数据列表
+        List<Employee> records = page.getResult();
+
+        return new PageResult(total, records);
+    }
 }
