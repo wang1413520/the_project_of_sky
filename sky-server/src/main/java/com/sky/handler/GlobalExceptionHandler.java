@@ -24,4 +24,20 @@ public class GlobalExceptionHandler {
         return Result.error(ex.getMessage());
     }
 
+    /*
+     * 捕获 SQL 异常信息
+     * */
+    @ExceptionHandler
+    public Result exceptionHandler(SQLIntegrityConstraintViolationException ex) {
+        log.info("SQL异常信息:{}", ex.getMessage());
+        String messageg = ex.getMessage();
+        if (messageg.contains("Duplicate entry")) {
+            String[] split = messageg.split(" ");
+            String username = split[2];
+            String msg = username + MessageConstant.ALREADY_EXISTS;
+            return Result.error(msg);
+        } else {
+            return Result.error(MessageConstant.UNKNOWN_ERROR);
+        }
+    }
 }
