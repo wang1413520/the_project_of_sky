@@ -119,4 +119,23 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee getById(Long id) {
         return employeeMapper.getById(id);
     }
+
+    /*
+     * 编辑员工的信息
+     * */
+    @Override
+    public void update(EmployeeDTO employeeDTO) {
+        // 持久层的 update()方法传入的是 Employee 对象
+        Employee employee = new Employee();
+        // 用的是对象的属性拷贝
+        BeanUtils.copyProperties(employeeDTO, employee);
+        // 设置修改时间和修改人
+        employee.setUpdateTime(LocalDateTime.now());
+        // 在拦截器ThreadLocal设置 id
+        employee.setUpdateUser(BaseContext.getCurrentId());
+        // 对 update 进行复用
+        employeeMapper.update(employee);
+    }
+
+
 }

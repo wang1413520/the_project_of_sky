@@ -32,4 +32,9 @@ public interface EmployeeService {
     * 根据 id 查询员工
     * */
     Employee getById(Long id);
+
+    /*
+    * 编辑员工的信息
+    * */
+    void update(EmployeeDTO employeeDTO);
 }

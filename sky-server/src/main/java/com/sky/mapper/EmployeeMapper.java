@@ -29,7 +29,7 @@ public interface EmployeeMapper {
     Page<Employee> pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
 
     /*
-    * 动态 SQL
+    * 动态 SQL 更新员工的数据
     * */
     void update(Employee employee);
 

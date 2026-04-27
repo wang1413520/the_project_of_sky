@@ -105,15 +105,29 @@ public class EmployeeController {
     @ApiOperation("启用禁用员工账号")
     public Result startOrStop(@PathVariable Integer status, Long id) {
         log.info("启用禁用员工账号 状态: {} 员工id: {}", status, id);
-        employeeService.startOrStop(status,id);
+        employeeService.startOrStop(status, id);
         return Result.success();
     }
 
+    /*
+     * 查询回显的操作
+     * */
     @GetMapping("/{id}")
     @ApiOperation("根据id查询员工")
-    public Result<Employee> getById(@PathVariable Long id){
+    public Result<Employee> getById(@PathVariable Long id) {
         Employee employee = employeeService.getById(id);
         return Result.success(employee);
+    }
+
+    /*
+     * 修改员工的操作
+     * */
+    @PutMapping()
+    @ApiOperation("编辑员工的信息")
+    public Result update(@RequestBody EmployeeDTO employeeDTO) {
+        log.info("编辑员工的信息: {}", employeeDTO);
+        employeeService.update(employeeDTO);
+        return Result.success();
     }
 
 }
