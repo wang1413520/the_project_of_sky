@@ -80,13 +80,13 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setStatus(StatusConstant.ENABLE);
         // 设置默认密码 (注意加密)
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
-        // 设置当前记录时间与修改时间
+        /* 设置当前记录时间与修改时间
         employee.setCreateTime(LocalDateTime.now());
         employee.setUpdateTime(LocalDateTime.now());
         // 设置此记录的创建人 id 与修改人id
         // 从 ThreadLocal 中获取运功的 id (在拦截器中解析获取的)
         employee.setCreateUser(BaseContext.getCurrentId());
-        employee.setUpdateUser(BaseContext.getCurrentId());
+        employee.setUpdateUser(BaseContext.getCurrentId());*/
         // 调用持久层
         employeeMapper.insert(employee);
     }
@@ -129,10 +129,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = new Employee();
         // 用的是对象的属性拷贝
         BeanUtils.copyProperties(employeeDTO, employee);
-        // 设置修改时间和修改人
+        /* 设置修改时间和修改人
         employee.setUpdateTime(LocalDateTime.now());
         // 在拦截器ThreadLocal设置 id
-        employee.setUpdateUser(BaseContext.getCurrentId());
+        employee.setUpdateUser(BaseContext.getCurrentId());*/
         // 对 update 进行复用
         employeeMapper.update(employee);
     }
